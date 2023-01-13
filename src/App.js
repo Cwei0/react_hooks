@@ -1,29 +1,14 @@
-import { useReducer, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef } from 'react';
 import './App.css';
+import Button from './Button';
 
-const reducer = (state, action) => {
-    switch(action.type) {
-        case "INCREMENT":
-            return {count: state.count + 1, showtext: state.showtext}
-        case "toggleShowText":
-            return {count: state.count, showtext: !state.showtext}
-        default:
-            return state;
-    }
-}
 const App = () => {
-    const[state, dispatch] = useReducer(reducer, {count: 0, showtext:true})
+    const btnref = useRef(null)
     return ( 
-        <div>
-            <h2>{state.count}</h2>
-         <button onClick={() => {
-            dispatch({type: "INCREMENT" })
-            dispatch({type: "toggleShowText"})
-         }}>
-            Click me
-         </button>
-         {state.showtext && <h2>Bitch</h2>}
-        </div>
+        <div className="app">
+            <button onClick={() => {btnref.current.alterToggle()}}>Button from Parent</button>
+            <Button ref={btnref} />
+        </div> 
          
      );
 }
